@@ -124,10 +124,10 @@ next_generation:
 			add al, cl
 		.assign_cell:
 			cmp rax, 2
-			je .keep_current			; 2 live neigbours, next generation cell same as current 
+			je .keep_current		; 2 live neigbours, next generation cell same as current 
 			mov byte [r9 + rbx], dead
 			cmp rax, 3
-			jne .next_cell			; not 2 nor 3, dead cell
+			jne .next_cell			; neither 2 or 3, dead cell
 			mov byte [r9 + rbx], live	; 3 live neighbours, live cell
 			jmp .next_cell
 		.keep_current:
@@ -165,7 +165,7 @@ first_generation:
 		jz .add_dead		; 0 dead, 1 live
 		add rax, live - dead - 1		
 		.add_dead:
-			add rax, dead		; rax is either 0 or live - dead
+			add rax, dead	; rax is either 0 or live - dead
 		mov [cells1 + rdi], al 	; store ascii code in array		
 		inc rdi			; increment array index
 		cmp rdi, rbx		; check whether index of new_line
