@@ -13,10 +13,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 %macro print 2
-	mov rax, sys_write
-	mov rdi, 1 	; stdout
+	mov eax, sys_write
+	mov edi, 1 	; stdout
 	mov rsi, %1
-	mov rdx, %2
+	mov edx, %2
 	syscall
 %endmacro
 
@@ -24,8 +24,8 @@ global _start
 
 section .data
 
-	row_cells:	equ 32
-	column_cells: 	equ 128
+	row_cells:	equ 32	; set to any (reasonable) value you wish
+	column_cells: 	equ 128 ; set to any (reasonable) value you wish
 	array_length:	equ row_cells * column_cells + row_cells ; cells are mapped to bytes in the array and a new line char ends each row
 
 	cells1: 	times array_length db new_line
@@ -58,9 +58,9 @@ _start:
 	.generate_cells:
 		xchg r8, r9		; exchange roles of current and next generation cell containers		
 		print r8, array_length	; print current generation
-		mov rax, sys_nanosleep
+		mov eax, sys_nanosleep
 		mov rdi, timespec
-		xor rsi, rsi		; ignore remaining time in case of call interruption
+		xor esi, esi		; ignore remaining time in case of call interruption
 		syscall			; sleep for tv_sec seconds + tv_nsec nanoseconds
 		print clear, clear_length		
 		jmp next_generation
@@ -69,11 +69,11 @@ _start:
 ; r8: current generation, r9: next generation
 next_generation:
 
-	xor rbx, rbx	; array index counter
+	xor ebx, ebx	; array index counter
 	.process_cell:
 		cmp byte [r8 + rbx], new_line
 		je .next_cell	; do not count live neighbours if new_line
-		xor rax, rax 	; live neighbours
+		xor eax, eax 	; live neighbours
 		.lower_index_neighbours:
 			mov rdx, rbx 			; copy of array index counter, will point to neighbour positions
 			dec rdx				; move to middle left neighbour
@@ -123,10 +123,10 @@ next_generation:
 			and cl, 1			; 1 if live, 0 if dead or new_line
 			add al, cl
 		.assign_cell:
-			cmp rax, 2
+			cmp al, 2
 			je .keep_current		; 2 live neigbours, next generation cell same as current 
 			mov byte [r9 + rbx], dead
-			cmp rax, 3
+			cmp al, 3
 			jne .next_cell			; neither 2 or 3, dead cell
 			mov byte [r9 + rbx], live	; 3 live neighbours, live cell
 			jmp .next_cell
@@ -143,8 +143,8 @@ next_generation:
 ; array cells1 is initialised with pseudorandom cells using a middle-square Weyl sequence RNG
 first_generation:
 
-	mov rax, sys_time
-        xor rdi, rdi 		; time stored in rax, rdi later used as array index counter 
+	mov eax, sys_time
+        xor edi, edi 		; time stored in rax, rdi later used as array index counter 
         syscall
 	mov r8w, ax 		; r8w stores seed, must be odd
 	and ax, 1		; 1 if odd and 0 if even
