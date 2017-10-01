@@ -1,17 +1,3 @@
-````
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;											;
-;	 ooooo                          ooooooo           o                      	;
-;	o     o   oo   o    o oooooo    o     o oooooo    o       o oooooo oooooo	;
-;	o        o  o  oo  oo o         o     o o         o       o o      o     	;
-;	o  oooo o    o o oo o ooooo     o     o ooooo     o       o ooooo  ooooo 	;
-;	o     o oooooo o    o o         o     o o         o       o o      o     	;
-;	o     o o    o o    o o         o     o o         o       o o      o     	;
-;	 ooooo  o    o o    o oooooo    ooooooo o         ooooooo o o      oooooo	;
-;											;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-````
-
 # ASM-GameOfLife
 <a href="https://github.com/PyvesB/ASM-GameOfLife/blob/master/LICENSE">
 <img src ="https://img.shields.io/github/license/PyvesB/ASM-GameOfLife.svg" />
@@ -47,11 +33,13 @@ The program can easily be modified to accommodate other operating system or asse
 
 #### :page_facing_up: Implementation notes
 
-The initial cell pattern is generated using ideas from *Middle Square Weyl Sequence RNG*, published by Bernard Widynski on 4th April 2017. The implementation relies on a finite grid, all cells outside the grid boundaries are considered as dead.
+The initial cell pattern is generated using ideas from *Middle Square Weyl Sequence RNG*, published by Bernard Widynski on 4th April 2017. 
+
+The implementation relies on a finite grid, all cells outside the grid boundaries are considered as dead.
 
 #### :cd: Running the code
 
-Simply use the following commands:
+Simply use the following commands in a terminal:
 ```
 git clone https://github.com/PyvesB/ASM-GameOfLife.git
 cd ASM-GameOfLife
