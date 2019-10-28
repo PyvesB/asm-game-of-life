@@ -15,7 +15,7 @@
 **An assembly implementation of Conway's Game of Life, using the NASM assembler and targeting Linux x86-64.**
 
 <p align="center">
-<img src ="http://images.jupload.fr/1492200371.png" />
+<img src ="https://github.com/PyvesB/asm-game-of-life/blob/master/screenshot.png?raw=true" />
 <br/>
 <i><sub>Screenshot from a Fedora workstation terminal. Have a close look and you'll be able to spot some gliders!</sub></i>
 </p>
